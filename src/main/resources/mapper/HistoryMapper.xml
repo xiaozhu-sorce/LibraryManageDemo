@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.mapper.HistoryMapper">
+    <insert id="insertHistory" parameterType="com.example.test.bean.HistoryBean">
+        INSERT INTO histories(user_id, book_id, borrow_date, return_date)
+        VALUES (#{user_id}, #{book_id}, #{borrow_date}, #{return_date});
+    </insert>
+
+    <select id="getAllHistoriesByUserId" resultType="com.example.test.bean.HistoryBean">
+        SELECT histories.id, user_id, users.name, book_id, books.name, borrow_date, return_date
+        FROM histories,
+             books,
+             users
+        WHERE histories.user_id = users.id
+          AND book_id = books.id
+          AND user_id = #{user_id};
+    </select>
+
+    <select id="getAllHistoriesByBookName" resultType="com.example.test.bean.HistoryBean">
+        SELECT histories.id, user_id, users.name, book_id, books.name, borrow_date, return_date
+        FROM histories,
+             books,
+             users
+        WHERE histories.user_id = users.id
+          AND book_id = books.id
+          And books.name = #{book_name};
+    </select>
+</mapper>

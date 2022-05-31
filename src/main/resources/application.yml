@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    name: RUNOOB
+    url: jdbc:mysql://localhost:3306/RUNOOB
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  swagger:
+    enable: true
+    groupName: library
+    basePackage: com.xiaozhu.springfox.swagger
+    version: 1.0.0
+    title: library
+    description: ????
+    contactName: xiaozhu
+    contactEmail: 790362227@qq.com
+    contactUrl: blog.xiaozhu-sorce.com
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.test.bean
