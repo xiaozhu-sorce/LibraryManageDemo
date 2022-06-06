@@ -52,4 +52,29 @@
         FROM users;
     </select>
 
+    <select id="getBookNumber" parameterType="int" resultType="int">
+        SELECT number
+        FROM books
+        WHERE id = #{id};
+    </select>
+
+    <update id="updateBookNumber" parameterType="int">
+        UPDATE books
+        SET number = #{number}
+        WHERE id = #{id};
+    </update>
+
+    <!--增加用户借书记录，为0则是失败-->
+    <insert id="addBorrowInfo" parameterType="com.example.test.bean.HistoryBean">
+        INSERT INTO histories(user_id, book_id, borrow_date)
+        VALUES (#{user_id}, #{book_id}, #{borrow_date});
+    </insert>
+
+    <!--用户还书时间，为0则是失败-->
+    <update id="addReturnInfo" parameterType="com.example.test.bean.HistoryBean">
+        UPDATE histories
+        SET return_date = #{return_date}
+        WHERE id = #{id};
+    </update>
+
 </mapper>

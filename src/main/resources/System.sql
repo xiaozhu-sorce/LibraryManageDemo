@@ -80,3 +80,7 @@ FROM histories,
 WHERE histories.user_id = users.id
   AND book_id = books.id
   AND user_id = '26';
+
+
+INSERT INTO histories(user_id, book_id, borrow_date)
+VALUES (1,1,'2002-1-1');

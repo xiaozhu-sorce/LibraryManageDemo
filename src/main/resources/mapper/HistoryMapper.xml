@@ -7,7 +7,7 @@
     </insert>
 
     <select id="getAllHistoriesByUserId" resultType="com.example.test.bean.HistoryBean">
-        SELECT histories.id, user_id, users.name, book_id, books.name, borrow_date, return_date
+        SELECT histories.id, user_id, users.name as user_name, book_id, books.name as book_name, borrow_date, return_date
         FROM histories,
              books,
              users

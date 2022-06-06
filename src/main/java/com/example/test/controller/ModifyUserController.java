@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.test.bean.HistoryBean;
 import com.example.test.bean.UserBean;
 import com.example.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class ModifyUserController {
         UserBean userBean = userService.queryUserById(id);
         if (userBean == null) {
             result.put("msg", "未查询到相关信息");
-        }else{
+        } else {
             result.put("msg", "ok");
             result.put("data", userBean);
         }
@@ -106,6 +107,50 @@ public class ModifyUserController {
             map.put("msg", "修改用户信息成功");
         } else {
             map.put("msg", "修改用户信息失败");
+        }
+        return map;
+    }
+
+    /**
+     * @Description: 借书
+     * @Param: [com.example.test.bean.HistoryBean]
+     * @return: java.util.Map
+     */
+    @PostMapping("/borrow")
+    public Map addBorrowInfo(@RequestBody HistoryBean historyBean) {
+        int num = userService.queryBookNumber(historyBean.getBook_id());
+        Map<String, Object> map = new HashMap<>();
+        if (num > 0) {
+            int flag = userService.borrowBook(historyBean);
+            if (flag == 1) {
+                num--;
+                userService.modifyBookNumber(historyBean.getBook_id(), num);
+                map.put("msg", "借书成功");
+            } else {
+                map.put("msg", "借书失败");
+            }
+        } else {
+            map.put("msg", "图书已被借阅完闭");
+        }
+        return map;
+    }
+
+    /**
+     * @Description: 还书
+     * @Param: [com.example.test.bean.HistoryBean]
+     * @return: java.util.Map
+     */
+    @PostMapping("/return")
+    public Map addReturnInfo(@RequestBody HistoryBean historyBean) {
+        int flag = userService.returnBook(historyBean);
+        Map<String, Object> map = new HashMap<>();
+        if (flag == 1) {
+            int num = userService.queryBookNumber(historyBean.getBook_id());
+            num++;
+            userService.modifyBookNumber(historyBean.getBook_id(), num);
+            map.put("msg", "还书成功");
+        } else {
+            map.put("msg", "还书失败");
         }
         return map;
     }

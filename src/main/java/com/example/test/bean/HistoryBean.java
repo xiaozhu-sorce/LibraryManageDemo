@@ -15,6 +15,12 @@ public class HistoryBean {
     private int book_id;
     private String book_name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String borrow_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String return_date;
+
+
     public String getUser_name() {
         return user_name;
     }
@@ -30,11 +36,6 @@ public class HistoryBean {
     public void setBook_name(String book_name) {
         this.book_name = book_name;
     }
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String borrow_date;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String return_date;
 
     public int getId() {
         return id;
